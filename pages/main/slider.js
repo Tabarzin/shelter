@@ -31,13 +31,31 @@ const shuffleArray = (array) => {
 
 const generateCard = (data) => {
   const card = document.createElement("div");
-  card.classList.add("card");
+  card.classList.add("slider-card");
 
-  card.innerHTML = `
-        <img src="${data.img}" alt="${data.name}">
-        <h2>${data.name}</h2>
-        
-           `;
+  const cardImageContainer = document.createElement("div");
+  cardImageContainer.classList.add("slider-card-image");
+  card.appendChild(cardImageContainer);
+
+  const image = document.createElement("img");
+  image.src = data.img;
+  image.alt = data.name;
+  cardImageContainer.appendChild(image);
+
+  const petTitle = document.createElement("span");
+  petTitle.classList.add("slider-pet-title");
+  petTitle.textContent = data.name;
+  card.appendChild(petTitle);
+
+  const learnMoreButton = document.createElement("button");
+  learnMoreButton.classList.add("button_secondary");
+  card.appendChild(learnMoreButton);
+
+  const learnMoreSpan = document.createElement("span");
+  learnMoreSpan.classList.add("learn-more");
+  learnMoreSpan.textContent = "Learn more";
+  learnMoreButton.appendChild(learnMoreSpan);
+
   return card;
 };
 
