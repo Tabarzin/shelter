@@ -56,6 +56,10 @@ const generateCard = (data) => {
   learnMoreSpan.textContent = "Learn more";
   learnMoreButton.appendChild(learnMoreSpan);
 
+  card.addEventListener("click", () => {
+    showPetModal(data);
+  });
+
   return card;
 };
 
@@ -85,3 +89,72 @@ const updateSlider = () => {
 };
 
 updateSlider();
+
+/* MODAL WINDOW */
+
+const showPetModal = (data) => {
+  // Create the modal container
+  const modalContainer = document.createElement("div");
+  modalContainer.classList.add("modal");
+
+  // Create the modal content
+  const modalContent = document.createElement("div");
+  modalContent.classList.add("modal-content");
+
+  const modalPetInfo = document.createElement("div");
+  modalPetInfo.classList.add("modal-pet-info");
+
+  // Create elements to display the pet data in the modal
+  const petName = document.createElement("h3");
+  petName.textContent = data.name;
+
+  const petImage = document.createElement("img");
+  petImage.src = data.img;
+  petImage.alt = data.name;
+
+  const petTypeBreed = document.createElement("h4");
+  petTypeBreed.textContent = `${data.type} - ${data.breed}`;
+
+  const petDescription = document.createElement("h5");
+  petDescription.textContent = data.description;
+
+  const petAge = document.createElement("p");
+  petAge.classList.add("modal-pet-info__sub");
+  petAge.textContent = `Age: ${data.age}`;
+
+  const petInoculations = document.createElement("p");
+  petInoculations.classList.add("modal-pet-info__sub");
+  petInoculations.textContent = `Inoculations: ${data.inoculations.join(", ")}`;
+
+  const petDiseases = document.createElement("p");
+  petDiseases.classList.add("modal-pet-info__sub");
+  petDiseases.textContent = `Diseases: ${data.diseases.join(", ")}`;
+
+  const petParasites = document.createElement("p");
+  petParasites.classList.add("modal-pet-info__sub");
+  petParasites.textContent = `Parasites: ${data.parasites.join(", ")}`;
+
+  // Append pet data elements to the modal content
+  modalContent.appendChild(petImage);
+  modalPetInfo.appendChild(petName);
+  modalPetInfo.appendChild(petTypeBreed);
+  modalPetInfo.appendChild(petDescription);
+  modalPetInfo.appendChild(petAge);
+  modalPetInfo.appendChild(petInoculations);
+  modalPetInfo.appendChild(petDiseases);
+  modalPetInfo.appendChild(petParasites);
+
+  // Append the modal content to the modal container
+  modalContent.appendChild(modalPetInfo);
+  modalContainer.appendChild(modalContent);
+
+  // Append the modal container to the document body
+  document.body.appendChild(modalContainer);
+
+  // Step 3: Add event listener to close the modal when clicked outside
+  modalContainer.addEventListener("click", (event) => {
+    if (event.target === modalContainer) {
+      document.body.removeChild(modalContainer);
+    }
+  });
+};
