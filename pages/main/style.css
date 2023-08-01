@@ -1640,10 +1640,11 @@ h1 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.7);
+  /* background-color: rgba(0, 0, 0, 0.7); */
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(41, 41, 41, 0.6);
 }
 
 .modal-content {
@@ -1700,7 +1701,7 @@ h1 {
   letter-spacing: 0.9px;
 }
 
-.modal-pet-info__sub {
+.modal-pet-info_label {
   color: #000;
 
   /* h5-modal-window */
@@ -1712,7 +1713,7 @@ h1 {
   letter-spacing: 0.9px;
 }
 
- {
+.modal-pet-info__sub-value {
   color: #000;
   font-family: Georgia;
   font-size: 15px;
