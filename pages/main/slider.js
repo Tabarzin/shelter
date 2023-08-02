@@ -3,6 +3,10 @@ import petsData from "./pets.json" assert { type: "json" };
 const sliderTrack = document.querySelector(".slider-track");
 const leftArrow = document.querySelector(".left-arrow");
 const rightArrow = document.querySelector(".right-arrow");
+
+const modal = document.getElementById("modal");
+const modalContent = document.getElementById("modal-content");
+
 let availableCards = [];
 let currentCardIndex = 0;
 
@@ -93,163 +97,37 @@ updateSlider();
 /* MODAL WINDOW */
 
 const showPetModal = (data) => {
-  const modalContainer = document.createElement("div");
-  modalContainer.classList.add("modal");
+  modal.style.display = "flex";
+  modalContent.style.display = "flex ";
 
-  const modalContent = document.createElement("div");
-  modalContent.classList.add("modal-content");
-
-  const modalPetInfo = document.createElement("div");
-  modalPetInfo.classList.add("modal-pet-info");
-
-  const petName = document.createElement("h3");
+  const petName = document.querySelector(".pet-name");
   petName.textContent = data.name;
 
-  const petImage = document.createElement("img");
+  const petImage = document.querySelector(".modal-image");
   petImage.src = data.img;
   petImage.alt = data.name;
 
-  const petTypeBreed = document.createElement("h4");
+  const petTypeBreed = document.querySelector(".pet-type-breed");
   petTypeBreed.textContent = `${data.type} - ${data.breed}`;
 
-  const petDescription = document.createElement("h5");
+  const petDescription = document.querySelector(".pet-description");
   petDescription.textContent = data.description;
 
-  const petAge = document.createElement("p");
-  const petAgeLabel = document.createElement("span");
-
-  petAgeLabel.classList.add("modal-pet-info_label");
-  petAgeLabel.textContent = "Age: ";
-
-  const petAgeValue = document.createElement("span");
-  petAgeValue.classList.add("modal-pet-info__sub-value");
+  const petAgeValue = document.getElementById("pet-age-value");
   petAgeValue.textContent = `${data.age}`;
 
-  petAge.appendChild(petAgeLabel);
-  petAge.appendChild(petAgeValue);
+  const petInocValue = document.getElementById("pet-inoculations-value");
+  petInocValue.textContent = `${data.inoculations.join(", ")}`;
 
-  const petInoculations = document.createElement("p");
+  const petDiseases = document.getElementById("pet-diseases-value");
+  petDiseases.textContent = `${data.diseases.join(", ")}`;
 
-  const petInoculationsLabel = document.createElement("span");
-  petInoculationsLabel.classList.add("modal-pet-info_label");
-  petInoculationsLabel.textContent = `Inoculations: `;
+  const petParasites = document.getElementById("pet-parasites-value");
+  petParasites.textContent = `${data.parasites.join(", ")}`;
 
-  const petInoculationsValue = document.createElement("span");
-  petInoculationsValue.classList.add("modal-pet-info__sub-value");
-  petInoculationsValue.textContent = `${data.inoculations.join(", ")}`;
-
-  petInoculations.appendChild(petInoculationsLabel);
-  petInoculations.appendChild(petInoculationsValue);
-
-  const petDiseases = document.createElement("p");
-
-  const petDiseasesLabel = document.createElement("span");
-  petDiseasesLabel.classList.add("modal-pet-info_label");
-  petDiseasesLabel.textContent = `Diseases: `;
-
-  const petDiseasesValue = document.createElement("span");
-  petDiseasesValue.classList.add("modal-pet-info__sub-value");
-  petDiseasesValue.textContent = `${data.diseases.join(", ")}`;
-
-  petDiseases.appendChild(petDiseasesLabel);
-  petDiseases.appendChild(petDiseasesValue);
-
-  const petParasites = document.createElement("p");
-
-  const petParasitesLabel = document.createElement("span");
-  petParasitesLabel.classList.add("modal-pet-info_label");
-  petParasitesLabel.textContent = `Parasites: `;
-
-  const petParasitesValue = document.createElement("span");
-  petParasitesValue.classList.add("modal-pet-info__sub-value");
-  petParasitesValue.textContent = `${data.parasites.join(", ")}`;
-
-  petParasites.appendChild(petParasitesLabel);
-  petParasites.appendChild(petParasitesValue);
-
-  modalContent.appendChild(petImage);
-  modalPetInfo.appendChild(petName);
-  modalPetInfo.appendChild(petTypeBreed);
-  modalPetInfo.appendChild(petDescription);
-  modalPetInfo.appendChild(petAge);
-  modalPetInfo.appendChild(petInoculations);
-  modalPetInfo.appendChild(petDiseases);
-  modalPetInfo.appendChild(petParasites);
-
-  modalContent.appendChild(modalPetInfo);
-  modalContainer.appendChild(modalContent);
-
-  document.body.appendChild(modalContainer);
-
-  modalContainer.addEventListener("click", (event) => {
-    if (event.target === modalContainer) {
-      document.body.removeChild(modalContainer);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
     }
   });
 };
-
-// const createElementWithClass = (tagName, className, textContent) => {
-//   const element = document.createElement(tagName);
-//   element.classList.add(className);
-//   if (textContent) {
-//     element.textContent = textContent;
-//   }
-//   return element;
-// };
-
-// const createDataElement = (label, value) => {
-//   const container = document.createElement("p");
-//   const labelElement = createElementWithClass(
-//     "span",
-//     "modal-pet-info__sub-label",
-//     label
-//   );
-//   const valueElement = createElementWithClass(
-//     "span",
-//     "modal-pet-info__sub-value",
-//     value
-//   );
-//   container.appendChild(labelElement);
-//   container.appendChild(valueElement);
-//   return container;
-// };
-
-// const showPetModal = (data) => {
-//   const modalContainer = createElementWithClass("div", "modal");
-//   const modalContent = createElementWithClass("div", "modal-content");
-//   const modalPetInfo = createElementWithClass("div", "modal-pet-info");
-
-//   modalPetInfo.appendChild(
-//     createElementWithClass("h3", "modal-pet-info__name", data.name)
-//   );
-//   modalPetInfo.appendChild(
-//     createElementWithClass("img", "modal-pet-image", null)
-//   ).src = data.img;
-//   modalPetInfo.lastChild.alt = data.name;
-//   modalPetInfo.appendChild(
-//     createElementWithClass("h4", null, `${data.type} - ${data.breed}`)
-//   );
-//   modalPetInfo.appendChild(
-//     createElementWithClass("h5", null, data.description)
-//   );
-//   modalPetInfo.appendChild(createDataElement("Age:", data.age));
-//   modalPetInfo.appendChild(
-//     createDataElement("Inoculations:", data.inoculations.join(", "))
-//   );
-//   modalPetInfo.appendChild(
-//     createDataElement("Diseases:", data.diseases.join(", "))
-//   );
-//   modalPetInfo.appendChild(
-//     createDataElement("Parasites:", data.parasites.join(", "))
-//   );
-
-//   modalContent.appendChild(modalPetInfo);
-//   modalContainer.appendChild(modalContent);
-//   document.body.appendChild(modalContainer);
-
-//   modalContainer.addEventListener("click", (event) => {
-//     if (event.target === modalContainer) {
-//       document.body.removeChild(modalContainer);
-//     }
-//   });
-// };
