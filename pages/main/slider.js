@@ -67,23 +67,38 @@ const generateCard = (data) => {
   return card;
 };
 
+let resizeTimeout;
+
+const debounce = (func, delay) => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(func, delay);
+};
+
 const updateSlider = () => {
   if (availableCards.length === 0) {
     availableCards = petsData.slice();
     shuffleArray(availableCards);
   }
 
+  const screenWidth = window.innerWidth;
+  let numCardsToShow = 3;
+
+  if (screenWidth < 1278) {
+    numCardsToShow = 2;
+  }
+
   const currentSlideCards = availableCards.slice(
     currentCardIndex,
-    currentCardIndex + 3
+    currentCardIndex + numCardsToShow
   );
 
-  if (currentSlideCards.length < 3) {
+  if (currentSlideCards.length < numCardsToShow) {
     const remainingCards = 3 - currentSlideCards.length;
     currentSlideCards.push(...availableCards.slice(0, remainingCards));
   }
 
-  currentCardIndex = (currentCardIndex + 3) % availableCards.length;
+  currentCardIndex =
+    (currentCardIndex + numCardsToShow) % availableCards.length;
 
   sliderTrack.innerHTML = "";
   currentSlideCards.forEach((data) => {
@@ -93,6 +108,10 @@ const updateSlider = () => {
 };
 
 updateSlider();
+
+window.addEventListener("resize", () => {
+  debounce(updateSlider, 300);
+});
 
 /* MODAL WINDOW */
 
