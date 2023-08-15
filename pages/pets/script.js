@@ -26,7 +26,7 @@ const lastPageButton = document.querySelectorAll(
 const currentPageIndicator = document.querySelector(".button_paginator");
 
 let currentPage = 1;
-let cardsPerPage = 8;
+let cardsPerPage = calculateCardsPerPage();
 
 function createCard(pet) {
   const card = document.createElement("div");
@@ -55,6 +55,17 @@ function createCard(pet) {
   card.appendChild(learnMoreButton);
 
   return card;
+}
+
+function calculateCardsPerPage() {
+  const screenWidth = window.innerWidth;
+  if (1280 <= screenWidth) {
+    return 8;
+  } else if (768 <= screenWidth && screenWidth < 1280) {
+    return 6;
+  } else {
+    return 3;
+  }
 }
 
 function updateCards() {
