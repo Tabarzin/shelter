@@ -1649,15 +1649,15 @@ h1 {
 
 .modal-content {
   display: none;
-  width: 900px;
-  height: 500px;
+  width: 56.25rem;
+  height: 31.25rem;
   border-radius: 9px;
   background: var(--color-light-s, #fafafa);
 }
 
 .modal img {
-  width: 500px;
-  height: 500px;
+  width: 31.25rem;
+  height: 31.25rem;
   border-radius: 9px 0px 0px 9px;
 }
 
@@ -1683,7 +1683,7 @@ h1 {
 
   /* h4 */
   font-family: Georgia;
-  font-size: 20px;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 400;
   line-height: 115%; /* 23px */
@@ -1695,7 +1695,7 @@ h1 {
 
   /* h5 */
   font-family: Georgia;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-style: normal;
   font-weight: 400;
   line-height: 110%; /* 16.5px */
@@ -1704,7 +1704,7 @@ h1 {
 
 .modal-pet-info-list {
   display: inline-flex;
-  height: 102px;
+  height: 6.375rem;
   padding-right: 0px;
   flex-direction: column;
   justify-content: center;
@@ -1733,7 +1733,7 @@ h1 {
 
   /* h5-modal-window */
   font-family: Georgia;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-style: normal;
   font-weight: 700;
   line-height: 110%; /* 16.5px */
@@ -1743,7 +1743,7 @@ h1 {
 .modal-pet-info_label span:nth-child(2) {
   color: #000;
   font-family: Georgia;
-  font-size: 15px;
+  font-size: 0.9375rem;
   font-style: normal;
   font-weight: 400;
   line-height: 110%;
@@ -1752,11 +1752,104 @@ h1 {
 
 .modal-pet-info-list-item {
   display: flex;
-  width: 121px;
-  height: 18px;
+  width: 7.5625rem;
+  height: 1.125rem;
   padding-bottom: 0px;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
+}
+
+@media screen and (min-width: 319px) and (max-width: 767px) {
+  .modal-content {
+    width: 18rem;
+    height: 35.0625rem;
+  }
+
+  .modal img {
+    display: none;
+  }
+
+  .pet-name {
+    font-size: 35px;
+    font-weight: 400;
+    line-height: 130%; /* 45.5px */
+    letter-spacing: 2.1px;
+  }
+
+  .modal-pet-info {
+    align-items: center;
+  }
+
+  .pet-description {
+    color: #000;
+
+    /* h5 */
+    font-family: Georgia;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%; /* 16.5px */
+    letter-spacing: 0.9px;
+  }
+
+  .modal-pet-info-list {
+    display: inline-flex;
+    height: 102px;
+    padding-right: 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .modal-pet-info-list ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    gap: 10px;
+  }
+
+  .modal-pet-info-list-dot {
+    width: 4px;
+    height: 4px;
+    fill: var(--color-primary, #f1cdb3);
+  }
+
+  .modal-pet-info_label {
+    color: #000;
+
+    /* h5-modal-window */
+    font-family: Georgia;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%; /* 16.5px */
+    letter-spacing: 0.9px;
+  }
+
+  .modal-pet-info_label span:nth-child(2) {
+    color: #000;
+    font-family: Georgia;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 110%;
+    letter-spacing: 0.9px;
+  }
+
+  .modal-pet-info-list-item {
+    display: flex;
+    width: 121px;
+    height: 18px;
+    padding-bottom: 0px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
 }

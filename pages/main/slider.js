@@ -87,6 +87,10 @@ const updateSlider = () => {
     numCardsToShow = 2;
   }
 
+  if (screenWidth < 768) {
+    numCardsToShow = 1;
+  }
+
   const currentSlideCards = availableCards.slice(
     currentCardIndex,
     currentCardIndex + numCardsToShow
