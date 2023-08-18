@@ -17,6 +17,7 @@ menuLink.addEventListener("click", toggleMenu);
 
 const modal = document.getElementById("modal");
 const modalContent = document.getElementById("modal-content");
+const closeButton = document.getElementById("close-button");
 
 export const showPetModal = (data) => {
   modal.style.display = "flex";
@@ -53,3 +54,7 @@ export const showPetModal = (data) => {
     }
   });
 };
+
+closeButton.addEventListener("click", () => {
+  modal.style.display = "none";
+});

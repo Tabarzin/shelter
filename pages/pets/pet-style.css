@@ -967,7 +967,20 @@ a {
   background: rgba(41, 41, 41, 0.6);
 }
 
+.modal-close-button {
+  position: absolute;
+  top: -43px;
+  right: -21px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .modal-content {
+  position: relative;
   display: none;
   width: 56.25rem;
   height: 31.25rem;
