@@ -15,6 +15,9 @@ menuLink.addEventListener("click", toggleMenu);
 
 // PETS GENERATOR //
 
+const modal = document.getElementById("modal");
+const modalContent = document.getElementById("modal-content");
+
 const cardsContainer = document.querySelector(".pets-cards-container");
 const prevButton = document.querySelectorAll(".button-arrow")[0];
 const nextButton = document.querySelectorAll(".button-arrow")[1];
@@ -28,20 +31,20 @@ const currentPageIndicator = document.querySelector(".button_paginator");
 let currentPage = 1;
 let cardsPerPage = calculateCardsPerPage();
 
-function createCard(pet) {
+function createCard(data) {
   const card = document.createElement("div");
   card.classList.add("slider-card");
 
   const cardImage = document.createElement("div");
   cardImage.classList.add("slider-card", "slider-card-image");
   const image = document.createElement("img");
-  image.src = pet.img;
-  image.alt = pet.name;
+  image.src = data.img;
+  image.alt = data.name;
   cardImage.appendChild(image);
 
   const petTitle = document.createElement("span");
   petTitle.classList.add("slider-pet-title");
-  petTitle.textContent = pet.name;
+  petTitle.textContent = data.name;
 
   const learnMoreButton = document.createElement("button");
   learnMoreButton.classList.add("button_secondary");
@@ -53,6 +56,10 @@ function createCard(pet) {
   card.appendChild(cardImage);
   card.appendChild(petTitle);
   card.appendChild(learnMoreButton);
+
+  card.addEventListener("click", () => {
+    showPetModal(data);
+  });
 
   return card;
 }
@@ -70,63 +77,56 @@ function calculateCardsPerPage() {
 
 function updateCards() {
   cardsContainer.innerHTML = "";
-  const startIndex = (currentPage - 1) * cardsPerPage;
-  const endIndex = startIndex + cardsPerPage;
-
-  for (let i = startIndex; i < endIndex && i < petsData.length; i++) {
+  for (let i = 0; i < cardsPerPage; i++) {
     const card = createCard(petsData[i]);
+
     cardsContainer.appendChild(card);
   }
-
-  prevButton.disabled = currentPage === 1;
-  nextButton.disabled = endIndex >= petsData.length;
-  firstPageButton.disabled = currentPage === 1;
-  lastPageButton.disabled =
-    Math.ceil(petsData.length / cardsPerPage) === currentPage;
-
-  currentPageIndicator.textContent = currentPage;
 }
 
-function handlePrevClick() {
-  if (currentPage > 1) {
-    currentPage--;
-    updateCards();
-  }
-}
-
-function handleNextClick() {
-  const totalPages = Math.ceil(petsData.length / cardsPerPage);
-  if (currentPage < totalPages) {
-    currentPage++;
-    updateCards();
-  }
-}
-
-function handleFirstPageClick() {
-  currentPage = 1;
-  updateCards();
-}
-
-function handleLastPageClick() {
-  currentPage = Math.ceil(petsData.length / cardsPerPage);
-  updateCards();
-}
-
-prevButton.addEventListener("click", handlePrevClick);
-nextButton.addEventListener("click", handleNextClick);
-firstPageButton.addEventListener("click", handleFirstPageClick);
-lastPageButton.addEventListener("click", handleLastPageClick);
-
+// Initial update
 updateCards();
 
+// Responsive behavior
 window.addEventListener("resize", () => {
-  const screenWidth = window.innerWidth;
-  if (1280 <= screenWidth) {
-    cardsPerPage = 8;
-  } else if (768 <= screenWidth && screenWidth < 1280) {
-    cardsPerPage = 6;
-  } else {
-    cardsPerPage = 3;
-  }
+  cardsPerPage = calculateCardsPerPage();
   updateCards();
 });
+
+/* MODAL WINDOW */
+
+const showPetModal = (data) => {
+  modal.style.display = "flex";
+  modalContent.style.display = "flex ";
+
+  const petName = document.querySelector(".pet-name");
+  petName.textContent = data.name;
+
+  const petImage = document.querySelector(".modal-image");
+  petImage.src = data.img;
+  petImage.alt = data.name;
+
+  const petTypeBreed = document.querySelector(".pet-type-breed");
+  petTypeBreed.textContent = `${data.type} - ${data.breed}`;
+
+  const petDescription = document.querySelector(".pet-description");
+  petDescription.textContent = data.description;
+
+  const petAgeValue = document.getElementById("pet-age-value");
+  petAgeValue.textContent = `${data.age}`;
+
+  const petInocValue = document.getElementById("pet-inoculations-value");
+  petInocValue.textContent = `${data.inoculations.join(", ")}`;
+
+  const petDiseases = document.getElementById("pet-diseases-value");
+  petDiseases.textContent = `${data.diseases.join(", ")}`;
+
+  const petParasites = document.getElementById("pet-parasites-value");
+  petParasites.textContent = `${data.parasites.join(", ")}`;
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+    }
+  });
+};
