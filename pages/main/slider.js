@@ -1,11 +1,9 @@
 import petsData from "./pets.json" assert { type: "json" };
+import { showPetModal } from "../script.js";
 
 const sliderTrack = document.querySelector(".slider-track");
 const leftArrow = document.querySelector(".left-arrow");
 const rightArrow = document.querySelector(".right-arrow");
-
-const modal = document.getElementById("modal");
-const modalContent = document.getElementById("modal-content");
 
 let availableCards = [];
 let currentCardIndex = 0;
@@ -116,41 +114,3 @@ updateSlider();
 window.addEventListener("resize", () => {
   debounce(updateSlider, 300);
 });
-
-/* MODAL WINDOW */
-
-const showPetModal = (data) => {
-  modal.style.display = "flex";
-  modalContent.style.display = "flex ";
-
-  const petName = document.querySelector(".pet-name");
-  petName.textContent = data.name;
-
-  const petImage = document.querySelector(".modal-image");
-  petImage.src = data.img;
-  petImage.alt = data.name;
-
-  const petTypeBreed = document.querySelector(".pet-type-breed");
-  petTypeBreed.textContent = `${data.type} - ${data.breed}`;
-
-  const petDescription = document.querySelector(".pet-description");
-  petDescription.textContent = data.description;
-
-  const petAgeValue = document.getElementById("pet-age-value");
-  petAgeValue.textContent = `${data.age}`;
-
-  const petInocValue = document.getElementById("pet-inoculations-value");
-  petInocValue.textContent = `${data.inoculations.join(", ")}`;
-
-  const petDiseases = document.getElementById("pet-diseases-value");
-  petDiseases.textContent = `${data.diseases.join(", ")}`;
-
-  const petParasites = document.getElementById("pet-parasites-value");
-  petParasites.textContent = `${data.parasites.join(", ")}`;
-
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) {
-      modal.style.display = "none";
-    }
-  });
-};
