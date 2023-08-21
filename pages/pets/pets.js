@@ -7,17 +7,21 @@ import { showPetModal } from "../script.js";
 // const modalContent = document.getElementById("modal-content");
 
 const cardsContainer = document.querySelector(".pets-cards-container");
-const prevButton = document.querySelectorAll(".button-arrow")[0];
-const nextButton = document.querySelectorAll(".button-arrow")[1];
-const firstPageButton = document.querySelector(".button_paginator");
+const prevButton = document.getElementById("prev-btn");
+const nextButton = document.getElementById("next-btn");
+
 const lastPageButton = document.querySelectorAll(
   ".button-arrow-interactive"
 )[1];
+const firstPageButton = document.querySelector(".button_paginator");
+
+const leftArrows = document.querySelectorAll(".pets-left-arrow");
 
 const currentPageIndicator = document.querySelector(".button_paginator");
 
 let currentPage = 1;
 let cardsPerPage = calculateCardsPerPage();
+const totalPages = Math.ceil(petsData.length / cardsPerPage);
 
 function createCard(data) {
   const card = document.createElement("div");
@@ -63,11 +67,22 @@ function calculateCardsPerPage() {
   }
 }
 
-function updateCards() {
-  cardsContainer.innerHTML = "";
-  for (let i = 0; i < cardsPerPage; i++) {
-    const card = createCard(petsData[i]);
+// function updateCards() {
+//   cardsContainer.innerHTML = "";
+//   for (let i = 0; i < cardsPerPage; i++) {
+//     const card = createCard(petsData[i]);
 
+//     cardsContainer.appendChild(card);
+//   }
+// }
+
+function updateCards(page) {
+  cardsContainer.innerHTML = "";
+  const startIndex = (page - 1) * cardsPerPage;
+  const endIndex = startIndex + cardsPerPage;
+
+  for (let i = startIndex; i < endIndex && i < petsData.length; i++) {
+    const card = createCard(petsData[i]);
     cardsContainer.appendChild(card);
   }
 }
@@ -80,3 +95,64 @@ window.addEventListener("resize", () => {
   cardsPerPage = calculateCardsPerPage();
   updateCards();
 });
+
+function updateButtonStyles() {
+  if (currentPage > 1) {
+    leftArrows.forEach((arrow) => {
+      arrow.classList.add("active-button");
+    });
+    prevButton.classList.add("active-button");
+    firstPageButton.classList.add("active-button");
+    nextButton.classList.remove("active-button");
+    lastPageButton.classList.remove("active-button");
+  } else if (currentPage === totalPages) {
+    prevButton.classList.remove("active-button");
+    firstPageButton.classList.remove("active-button");
+    nextButton.classList.add("active-button");
+    lastPageButton.classList.add("active-button");
+  } else {
+    prevButton.classList.remove("active-button");
+    firstPageButton.classList.remove("active-button");
+    nextButton.classList.remove("active-button");
+    lastPageButton.classList.remove("active-button");
+  }
+}
+
+prevButton.addEventListener("click", () => {
+  console.log("prev btn clicked");
+  if (currentPage > 1) {
+    currentPage--;
+    updateButtonStyles();
+    updatePagination();
+  }
+});
+
+nextButton.addEventListener("click", () => {
+  console.log("next btn clicked");
+  if (currentPage < totalPages) {
+    currentPage++;
+
+    updateButtonStyles();
+
+    updatePagination();
+  }
+});
+
+firstPageButton.addEventListener("click", () => {
+  currentPage = 1;
+  updateButtonStyles();
+  updatePagination();
+});
+
+lastPageButton.addEventListener("click", () => {
+  currentPage = totalPages;
+  updateButtonStyles();
+  updatePagination();
+});
+
+function updatePagination() {
+  currentPageIndicator.textContent = currentPage;
+  updateCards(currentPage);
+}
+
+updatePagination();
