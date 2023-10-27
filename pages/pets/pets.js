@@ -1,6 +1,8 @@
 import petsData from "../main/pets.json" assert { type: "json" };
 import { showPetModal } from "../script.js";
 
+console.log(petsData.length, "petsData");
+
 // PETS GENERATOR //
 
 // const modal = document.getElementById("modal");
