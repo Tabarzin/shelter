@@ -1,5 +1,5 @@
 import petsData from "./pets.json" assert { type: "json" };
-import { showPetModal } from "../script.js";
+import { showPetModal } from "./pages/script.js";
 
 const sliderTrack = document.querySelector(".slider-track");
 const leftArrow = document.querySelector(".left-arrow");
